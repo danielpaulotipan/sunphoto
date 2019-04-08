@@ -5,6 +5,14 @@ from pysolar.solar import *
 import datetime
 import pytz
 from dateutil import tz
+import Adafruit_ADS1x15
+
+#adc iniitalization
+adcsp1 = Adafruit_ADS1x15.ADS1115(address=0x4A, busnum=1)
+adcsp2 = Adafruit_ADS1x15.ADS1115(address=0x4B, busnum=1)
+adcqpd = Adafruit_ADS1x15.ADS1115(address=0x48, busnum=1)
+GAIN = 2/3
+
 
 # Pysolar Values
 werstern = pytz.timezone('Asia/Manila')
@@ -210,5 +218,23 @@ while True:
 	print(datetime.datetime.now())
 	while time.time() < t_end2:
 		print("Acquire Data")
+		sp1= adcsp1.read_adc(0, gain=GAIN)
+		sp1=(sp1*0.1875)/1000
+
+		sp2= adcsp1.read_adc(0, gain=GAIN)
+		sp2=(sp2*0.1875)/1000
+
+		sp3=adcsp1.read_adc(0, gain=GAIN)
+		sp3=(sp3*0.1875)/1000
+
+		sp4=adcsp1.read_adc(0, gain=GAIN)
+		sp4=(sp4*0.1875)/1000
+
+		sp5=adcsp2.read_adc(0, gain=GAIN)
+		sp5=(sp5*0.1875)/1000
+
+		sp6=adcsp2.read_adc(0, gain=GAIN)
+		sp6=(sp6*0.1875)/1000
+
 		time.sleep(1)
 	print("End of Data Acq")

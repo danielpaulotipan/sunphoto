@@ -20,7 +20,8 @@ GPIO.setup(Azi_Step, GPIO.OUT)
 GPIO.setup(Alt_Dir, GPIO.OUT)
 GPIO.setup(Alt_Step, GPIO.OUT)
 
-adc = Adafruit_ADS1x15.ADS1115()
+adcqpd = Adafruit_ADS1x15.ADS1115(address=0x48, busnum=1)
+
 
 GAIN = 2/3
 
@@ -28,8 +29,8 @@ step_count = 20 #7200 steps / 360 degrees
 delay=.005  #.005 
 while True:
 	values = [0]*4
-	values[0] = adc.read_adc(0, gain=GAIN)
-	values[1] = adc.read_adc(1, gain=GAIN)
+	values[0] = adcqpd.read_adc(0, gain=GAIN)
+	values[1] = adcqpd.read_adc(1, gain=GAIN)
         LRQ = (values[0] * 0.1875)/1000
         UDQ = (values[1] * 0.1875)/1000
 
